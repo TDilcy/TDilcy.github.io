@@ -1,0 +1,889 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="豆瓣,python,selenium," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="获取豆瓣电视剧信息简介输入电视剧类型（美剧，英剧，韩剧，日剧，港剧，国产剧，日本动画）、排名方法（推荐，时间，评分）、欲输出的数目，即可得到所需信息。
+code123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646">
+<meta property="og:type" content="article">
+<meta property="og:title" content="豆瓣电视剧选择器">
+<meta property="og:url" content="http://yoursite.com/2016/07/30/豆瓣电视剧选择器/index.html">
+<meta property="og:site_name" content="A Way Out">
+<meta property="og:description" content="获取豆瓣电视剧信息简介输入电视剧类型（美剧，英剧，韩剧，日剧，港剧，国产剧，日本动画）、排名方法（推荐，时间，评分）、欲输出的数目，即可得到所需信息。
+code123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646">
+<meta property="og:updated_time" content="2016-07-30T08:09:40.908Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="豆瓣电视剧选择器">
+<meta name="twitter:description" content="获取豆瓣电视剧信息简介输入电视剧类型（美剧，英剧，韩剧，日剧，港剧，国产剧，日本动画）、排名方法（推荐，时间，评分）、欲输出的数目，即可得到所需信息。
+code123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/07/30/豆瓣电视剧选择器/"/>
+
+  <title> 豆瓣电视剧选择器 | A Way Out </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?f5d54f11174339148c6a42d69a2fbbad";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">A Way Out</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">Seek</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/Me" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            Me
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                豆瓣电视剧选择器
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-30T16:06:28+08:00" content="2016-07-30">
+              2016-07-30
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/python-crawler/" itemprop="url" rel="index">
+                    <span itemprop="name">python - crawler</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/python-crawler/spider/" itemprop="url" rel="index">
+                    <span itemprop="name">spider</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/30/豆瓣电视剧选择器/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/30/豆瓣电视剧选择器/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="获取豆瓣电视剧信息"><a href="#获取豆瓣电视剧信息" class="headerlink" title="获取豆瓣电视剧信息"></a>获取豆瓣电视剧信息</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>输入<strong>电视剧类型</strong>（美剧，英剧，韩剧，日剧，港剧，国产剧，日本动画）、<strong>排名方法</strong>（推荐，时间，评分）、欲输出的<strong>数目</strong>，即可得到所需信息。</p>
+<h2 id="code"><a href="#code" class="headerlink" title="code"></a>code</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div></pre></td><td class="code"><pre><div class="line"># coding: utf-8</div><div class="line">from selenium import webdriver</div><div class="line">from selenium.common.exceptions import NoSuchElementException</div><div class="line">from selenium.webdriver.support.ui import WebDriverWait</div><div class="line">from selenium.webdriver.support import expected_conditions as EC</div><div class="line">from selenium.webdriver.common.by import By</div><div class="line">import csv</div><div class="line">import time</div><div class="line">import re</div><div class="line"></div><div class="line"></div><div class="line">#打开初始页面，得到当前窗口句柄</div><div class="line">def get_initial_driver(url):</div><div class="line">    driver = webdriver.Chrome()</div><div class="line">    driver.get(url)</div><div class="line">    time.sleep(3)</div><div class="line">    global gen_win_handle</div><div class="line">    gen_win_handle = driver.current_window_handle</div><div class="line">    return driver</div><div class="line"></div><div class="line"></div><div class="line">#点开电影详情页，保存所需信息，写入csv文件。</div><div class="line">def save_single_data(driver):</div><div class="line">    elems = driver.find_elements_by_xpath(&apos;//a[@class=&quot;item&quot;]/p&apos;)</div><div class="line">    elems[i-1].click()</div><div class="line">    # 由主窗口切换至详情窗口</div><div class="line">    handles = driver.window_handles</div><div class="line">    for each_handle in handles:</div><div class="line">        if each_handle == gen_win_handle:</div><div class="line">            continue</div><div class="line">        else:</div><div class="line">            driver.switch_to_window(each_handle)</div><div class="line">            # 获取所需信息</div><div class="line">            film_name = driver.find_element_by_xpath(&apos;//h1/span[1]&apos;).text.encode(&apos;utf-8&apos;)</div><div class="line">            Date = driver.find_element_by_xpath(&apos;//h1/span[2]&apos;).text.encode(&apos;utf-8&apos;)</div><div class="line">            pat = re.compile(r&apos;\d&#123;4&#125;&apos;)</div><div class="line">            release_year = re.search(pat, Date).group()  # 利用正则将年份包含的括号去除</div><div class="line">            try:</div><div class="line">                director = driver.find_element_by_xpath(&apos;//div[@id=&quot;info&quot;]/span[1]/span[2]&apos;).text.encode(&apos;utf-8&apos;)</div><div class="line">            except NoSuchElementException, e:</div><div class="line">                print e.message</div><div class="line">                director = &apos;No director found&apos;</div><div class="line">            genres = driver.find_elements_by_xpath(&apos;//div[@id=&quot;info&quot;]/span[@property=&quot;v:genre&quot;]&apos;)</div><div class="line">            genre = get_genre(genres)</div><div class="line">            try:</div><div class="line">                bref_intr = driver.find_element_by_xpath(&apos;//span[@property=&quot;v:summary&quot;]&apos;).text.encode(&apos;utf-8&apos;)</div><div class="line">            except NoSuchElementException, e:</div><div class="line">                print e.message</div><div class="line">                bref_intr = &apos;No introduction&apos;</div><div class="line">            rating = driver.find_element_by_xpath(&apos;//strong[@class=&quot;ll rating_num&quot;]&apos;).text.encode(&apos;utf-8&apos;)</div><div class="line">            voter_num = driver.find_element_by_xpath(&apos;//a[@class=&quot;rating_people&quot;]/span&apos;).text.encode(&apos;utf-8&apos;)</div><div class="line">            content_list = [film_name, release_year, director, genre, bref_intr, rating, voter_num]</div><div class="line">            save_in_csv(content_list)</div><div class="line">            driver.close()</div><div class="line">            driver.switch_to_window(gen_win_handle)</div><div class="line">    return driver</div><div class="line"></div><div class="line"></div><div class="line">#获取要求数目的电影详情</div><div class="line">def save_page_data(url):</div><div class="line">    global i  #使i在函数内起作用，而且变化后的数值可以影响到函数外的部分</div><div class="line">    while i &lt;= item_num:</div><div class="line">        final_driver = save_single_data(url)</div><div class="line">        i += 1</div><div class="line">    return final_driver</div><div class="line"></div><div class="line"></div><div class="line">#初始化csv文件：清空并写入首行数据</div><div class="line">def init_data():</div><div class="line">    with open(&apos;g:\coding\python\python2.x\douban\movie_data.csv&apos;, &quot;w&quot;) as fp:</div><div class="line">        fp.truncate()</div><div class="line">        init_row = [&apos;名称&apos;, &apos;日期&apos;, &apos;导演&apos;, &apos;类型&apos;, &apos;简介&apos;, &apos;评分&apos;, &apos;参评人数&apos;]</div><div class="line">        writer = csv.writer(fp)</div><div class="line">        try:</div><div class="line">            writer.writerow(init_row)</div><div class="line">        finally:</div><div class="line">            fp.close()</div><div class="line">    return</div><div class="line"></div><div class="line"></div><div class="line">#格式化输出‘类型’</div><div class="line">def get_genre(genres):</div><div class="line">    genre = &quot;&quot;</div><div class="line">    if len(genres) == 1:</div><div class="line">        genre = genres[0].text.encode(&apos;utf-8&apos;)</div><div class="line">    else:</div><div class="line">        for gen in genres:</div><div class="line">            genre = genre+&apos;/&apos;+gen.text.encode(&apos;utf-8&apos;)</div><div class="line">    return genre</div><div class="line"></div><div class="line"></div><div class="line">#将信息写入csv文件</div><div class="line">def save_in_csv(c_list):</div><div class="line">    with open(&apos;g:\coding\python\python2.x\douban\movie_data.csv&apos;, &apos;a+&apos;) as fp:</div><div class="line">        writer = csv.writer(fp)</div><div class="line">        try:</div><div class="line">            writer.writerow(c_list)</div><div class="line">        finally:</div><div class="line">            fp.close()</div><div class="line">        return</div><div class="line"></div><div class="line"></div><div class="line">#显式等待，待“更多”按钮加载出来后才开始后续</div><div class="line">def wait_page(driver):</div><div class="line">    WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.CLASS_NAME, &quot;more&quot;)))</div><div class="line">    return driver</div><div class="line"></div><div class="line"></div><div class="line">#输入检查（未完成）</div><div class="line">def check_input_type(prompt):</div><div class="line">    global input_item</div><div class="line">    try:</div><div class="line">        input_item = input(prompt)</div><div class="line">    except NameError or TypeError:</div><div class="line">        if isinstance(input_item, int):</div><div class="line">            return input_item</div><div class="line">        else:</div><div class="line">            input_item = input(&quot;number needed,other type won&apos;t work,enter again:&quot;)</div><div class="line">            return input_item</div><div class="line"></div><div class="line"></div><div class="line">tag_prompt = &apos;Choose the tag of TV:\n1.Am_TV\n2.Br_TV\n3.Kr_TV\n4.Jp_TV\n5.Ch_TV\n6.HK_TV\n7.Jp_amination\nYour choice：&apos;</div><div class="line">sort_prompt = &apos;Choose the way of sorting TV:\n1.recommend\n2.time\n3.rank\nYour choice:&apos;</div><div class="line">item_num_prompt = &apos;How many TVs do you wanna show:&apos;</div><div class="line">tag_no = check_input_type(tag_prompt)</div><div class="line">sort_no = check_input_type(sort_prompt)</div><div class="line">item_num = check_input_type(item_num_prompt)</div><div class="line">tags = [&apos;%E7%BE%8E%E5%89%A7&apos;,</div><div class="line">        &apos;%E8%8B%B1%E5%89%A7&apos;,</div><div class="line">        &apos;%E9%9F%A9%E5%89%A7&apos;,</div><div class="line">        &apos;%E6%97%A5%E5%89%A7&apos;,</div><div class="line">        &apos;%E5%9B%BD%E4%BA%A7%E5%89%A7&apos;,</div><div class="line">        &apos;%E6%B8%AF%E5%89%A7&apos;,</div><div class="line">        &apos;%E6%97%A5%E6%9C%AC%E5%8A%A8%E7%94%BB&apos;]</div><div class="line">sorts = [&apos;recommend&apos;, &apos;time&apos;, &apos;rank&apos;]</div><div class="line">initial_url = &apos;https://movie.douban.com/tv/#!type=tv&amp;tag=%s&amp;sort=%s&amp;page_limit=20&amp;page_start=0&apos; % (tags[tag_no-1], sorts[sort_no-1])</div><div class="line">loop_times = item_num/20</div><div class="line">count = 0</div><div class="line">global i</div><div class="line">i = 1</div><div class="line">init_data()</div><div class="line">#三种情况，依据是否点击及点击多少次“更多”按钮分类</div><div class="line">if loop_times == 0:</div><div class="line">    driver = get_initial_driver(initial_url)</div><div class="line">    wait_page(driver)</div><div class="line">    a = save_page_data(driver)</div><div class="line">    a.quit()</div><div class="line">elif loop_times != 0 and item_num % 20 == 0:</div><div class="line">    driver = get_initial_driver(initial_url)</div><div class="line">    wait_page(driver)</div><div class="line">    while count &lt; loop_times:</div><div class="line">        more_button = driver.find_element_by_class_name(&quot;more&quot;)</div><div class="line">        more_button.click()</div><div class="line">        count += 1</div><div class="line">    a = save_page_data(driver)</div><div class="line">    a.quit()</div><div class="line">else:</div><div class="line">    driver = get_initial_driver(initial_url)</div><div class="line">    wait_page(driver)</div><div class="line">    while count &lt;= loop_times:</div><div class="line">        more_button = driver.find_element_by_class_name(&quot;more&quot;)</div><div class="line">        more_button.click()</div><div class="line">        count += 1</div><div class="line">    a = save_page_data(driver)</div><div class="line">    a.quit()</div></pre></td></tr></table></figure>
+<h2 id="学习内容"><a href="#学习内容" class="headerlink" title="学习内容"></a>学习内容</h2><ul>
+<li>使用selenium自动化浏览器，模拟其操作实现动态网页（及包含<em>javascript</em>）的抓取，包括<strong>元素选取</strong>，<strong>点击按钮</strong>，<strong>设置等待</strong>。</li>
+<li>使用selenium选择页面元素是采用了<code>find_element_by_xpath</code>方法，初步学习了下path语法。</li>
+<li>使用了<em>headless</em>浏览器<em>PhantomJS</em>代替<em>Chrome</em>。<h2 id="注意事项及其他"><a href="#注意事项及其他" class="headerlink" title="注意事项及其他"></a>注意事项及其他</h2></li>
+<li>编码问题，勿对<em>str</em>进行<em>encode</em>，勿对<em>unicode</em>进行<em>decode</em>。</li>
+<li>调用<em>Chrome</em>需使用<em>ChromeDriver</em>，在调用<em>Chrome</em>及<em>PhantomJS</em>时需将其添加至系统环境变量，若不添加，则在调用时需写明路径。</li>
+<li>在抓取某些在部分电影存在，而在其他电影未必存在的信息，需采用异常处理机制，若检查出不存在，则需要用其他信息替换。<h2 id="问题及不足"><a href="#问题及不足" class="headerlink" title="问题及不足"></a>问题及不足</h2></li>
+<li>excel读取csv文件时易出现乱码，考虑改还信息存储方式（如使用MySQL）</li>
+<li>输入检查未编写完成，而且目前只能考虑检查输入类型是否正确（是否输入数字），应考虑到输入范围。</li>
+<li>获取<strong>集数</strong>和<strong>季数</strong></li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/豆瓣/" rel="tag">#豆瓣</a>
+          
+            <a href="/tags/python/" rel="tag">#python</a>
+          
+            <a href="/tags/selenium/" rel="tag">#selenium</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/07/30/由荣格自传所引发的一些思考/" rel="next" title="由荣格自传所引发的一些思考">
+                <i class="fa fa-chevron-left"></i> 由荣格自传所引发的一些思考
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/07/30/豆瓣电视剧选择器/"
+           data-title="豆瓣电视剧选择器" data-url="http://yoursite.com/2016/07/30/豆瓣电视剧选择器/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="坠井的猪" />
+          <p class="site-author-name" itemprop="name">坠井的猪</p>
+          <p class="site-description motion-element" itemprop="description">我们始终无法成为我们自己</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">4</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/TDilcy" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://music.163.com/#/user/home?id=3740365" target="_blank" title="NetEeseCM">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  NetEeseCM
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#获取豆瓣电视剧信息"><span class="nav-number">1.</span> <span class="nav-text">获取豆瓣电视剧信息</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-number">1.1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#code"><span class="nav-number">1.2.</span> <span class="nav-text">code</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#学习内容"><span class="nav-number">1.3.</span> <span class="nav-text">学习内容</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#注意事项及其他"><span class="nav-number">1.4.</span> <span class="nav-text">注意事项及其他</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题及不足"><span class="nav-number">1.5.</span> <span class="nav-text">问题及不足</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">坠井的猪</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"tdilcy"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+  </script>
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for (i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  </script>
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+  
+
+  
+
+</body>
+</html>
