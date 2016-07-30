@@ -152,7 +152,7 @@
       <span class="logo-line-after"><i></i></span>
     </a>
   </div>
-  <p class="site-subtitle">Seek&Persue</p>
+  <p class="site-subtitle">Seek</p>
 </div>
 
 <div class="site-nav-toggle">
@@ -282,8 +282,14 @@
       
         
           
-            
           
+          
+
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/07/29/cmd-text/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -375,23 +381,15 @@
       
         
           
-            <h2 id="first-page"><a href="#first-page" class="headerlink" title="first page"></a>first page</h2><p>code text <code>import re</code></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#-*- coding: utf-8 -*-</span></div><div class="line"><span class="comment">#Author:Lcy</span></div><div class="line"><span class="comment">#Date:2016-7-15</span></div><div class="line"><span class="keyword">import</span> smtplib</div><div class="line"><span class="keyword">from</span> email.mime.text <span class="keyword">import</span> MIMEText</div><div class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</div><div class="line"><span class="keyword">import</span> urllib2</div><div class="line"><span class="keyword">import</span> random</div><div class="line"><span class="keyword">import</span> time</div><div class="line"><span class="comment"># make a send_function</span></div><div class="line">smtp_info = &#123;<span class="string">'host'</span>: <span class="string">'smtp.qq.com'</span>, <span class="string">'port'</span>: <span class="number">465</span>,</div><div class="line">             <span class="string">'user'</span>: <span class="string">'xxx@qq.com'</span>, <span class="string">'pswd'</span>: <span class="string">'xxx'</span>&#125;</div><div class="line">receiver_list = [<span class="string">"xxx@126.com"</span>, <span class="string">"xxx@126.com"</span>, <span class="string">"xxx@qq.com"</span>, <span class="string">"xxx@qq.com"</span>, <span class="string">"xxx@qq.com"</span>]</div><div class="line">My_User_Agents = [<span class="string">"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.106 Safari/537.36"</span>,</div><div class="line">                  <span class="string">"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36 Edge/12.10240"</span>,</div><div class="line">                  <span class="string">"Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; rv:11.0) like Gecko"</span>,</div><div class="line">                  <span class="string">"Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.106 Safari/537.36 OPR/38.0.2220.41"</span>]</div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">send_email</span><span class="params">(receivers, sub, mail_content)</span>:</span></div><div class="line">    <span class="comment"># create an object of MIMEText,it contains the subject,the receivers,the sender.</span></div><div class="line">    msg = MIMEText(mail_content, <span class="string">"plain"</span>, <span class="string">"utf-8"</span>)</div><div class="line">    msg[<span class="string">"Subject"</span>] = sub</div><div class="line">    msg[<span class="string">"From"</span>] = smtp_info[<span class="string">"user"</span>]</div><div class="line">    msg[<span class="string">"To"</span>] = <span class="string">";"</span>.join(receivers)</div><div class="line">    <span class="keyword">try</span>:</div><div class="line">        <span class="comment"># create a SMTP object</span></div><div class="line">        s = smtplib.SMTP_SSL()  <span class="comment"># SMTP_SSL is required in the qqmail</span></div><div class="line">        s.connect(smtp_info[<span class="string">"host"</span>], smtp_info[<span class="string">"port"</span>])     <span class="comment"># connect the sever</span></div><div class="line">        s.login(smtp_info[<span class="string">"user"</span>], smtp_info[<span class="string">"pswd"</span>])   <span class="comment"># log in account</span></div><div class="line">        s.sendmail(smtp_info[<span class="string">"user"</span>], receivers, msg.as_string())  <span class="comment"># send email</span></div><div class="line">        <span class="keyword">return</span> <span class="keyword">True</span></div><div class="line">    <span class="keyword">except</span> Exception, e:</div><div class="line">        <span class="keyword">print</span> str(e)</div><div class="line">        <span class="keyword">return</span> <span class="keyword">False</span></div><div class="line">    <span class="keyword">finally</span>:</div><div class="line">        s.quit()</div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_content</span><span class="params">(url, Agent)</span>:</span></div><div class="line">    random_Agent = random.choice(Agent)</div><div class="line">    req = urllib2.Request(url)</div><div class="line">    req.add_header(<span class="string">'User-Agent'</span>, random_Agent)</div><div class="line">    req.add_header(<span class="string">'Host'</span>, <span class="string">'www.fmylife.com'</span>)</div><div class="line">    req.add_header(<span class="string">'Referer'</span>, <span class="string">'https://www.google.com/'</span>)</div><div class="line">    req.add_header(<span class="string">'GET'</span>, <span class="string">'url'</span>)</div><div class="line">    html = urllib2.urlopen(req).read()</div><div class="line">    <span class="keyword">return</span> html</div><div class="line"><span class="comment">#imatate the broswer to get the html file</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_text</span><span class="params">(x)</span>:</span></div><div class="line">    soup = BeautifulSoup(x, <span class="string">"html.parser"</span>, from_encoding=<span class="string">"utf-8"</span>)</div><div class="line">    <span class="comment"># print soup.prettify().encode("utf-8")</span></div><div class="line">    texts = soup.find_all(<span class="string">"a"</span>, class_=<span class="string">"fmllink"</span>)</div><div class="line">    i = <span class="number">1</span></div><div class="line">    text_list = []</div><div class="line">    text_list.append(<span class="string">"            page %d"</span> % count)</div><div class="line">    temp = <span class="string">""</span></div><div class="line">    <span class="keyword">for</span> text <span class="keyword">in</span> texts:</div><div class="line">        text_list.append(<span class="string">"item%d:"</span> % i)</div><div class="line">        text_list.append(text.string.encode(<span class="string">"utf-8"</span>))   <span class="comment"># To prevent unexpected unicode_encode_error</span></div><div class="line">        i += <span class="number">1</span></div><div class="line">    temp = <span class="string">"\n\n"</span>.join(text_list)     <span class="comment"># turn the seperate text into one string</span></div><div class="line">    <span class="keyword">return</span> temp</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment"># set the info of recievers, smtp_info, subject, content</span></div><div class="line"></div><div class="line"></div><div class="line">page = <span class="number">3</span></div><div class="line">count = <span class="number">1</span></div><div class="line">final_text = <span class="string">""</span></div><div class="line"><span class="keyword">while</span> count &lt; page:</div><div class="line">    url = <span class="string">"http://www.fmylife.com/?page=%d#top"</span> % count</div><div class="line">    content = get_content(url, My_User_Agents)</div><div class="line">    final_text = final_text + <span class="string">"\n"</span> + get_text(content)</div><div class="line">    count += <span class="number">1</span></div><div class="line">sub = <span class="string">"This is the jokes from FML website"</span></div><div class="line">mail_content = final_text + <span class="string">"\n\n\n\n\nThis email is automatically sent via a script written by python_____Lcy\n"</span> + time.strftime(<span class="string">"%Y-%m-%d  %H:%M"</span>)</div><div class="line"><span class="comment"># print mail_content</span></div><div class="line"><span class="keyword">if</span> send_email(receiver_list, sub, mail_content):</div><div class="line">    <span class="keyword">print</span> <span class="string">"email sent successfully"</span></div><div class="line"><span class="keyword">else</span>:</div><div class="line">    <span class="keyword">print</span> <span class="string">"fail to send email"</span></div></pre></td></tr></table></figure>
-<p><del>delete line</del></p>
-<ul>
-<li>unorder<ol>
-<li>llist</li>
-</ol>
-</li>
-</ul>
-<blockquote>
-<p>quote</p>
-<blockquote>
-<p>quote </p>
-</blockquote>
-</blockquote>
+          first pagecode text import re
+123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646
+          ...
 
-          
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/07/29/someting-in-7-28/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -483,17 +481,14 @@
       
         
           
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+          Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in 
+          ...
 
-          
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/07/29/hello-world/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -553,7 +548,7 @@
       <section class="site-overview sidebar-panel  sidebar-panel-active ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
-               src="/images/avatar.gif"
+               src="/images/avatar.jpg"
                alt="坠井的猪" />
           <p class="site-author-name" itemprop="name">坠井的猪</p>
           <p class="site-description motion-element" itemprop="description">我们始终无法成为我们自己</p>
@@ -575,6 +570,26 @@
         
 
         <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/TDilcy" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://music.163.com/#/user/home?id=3740365" target="_blank" title="NetEeseCM">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  NetEeseCM
+                </a>
+              </span>
+            
           
         </div>
 
@@ -703,6 +718,26 @@
   
 
   
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+  </script>
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for (i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  </script>
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
 
   
 
